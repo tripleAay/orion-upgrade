@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import bannerImage from '../assets/images/pagebanner.jpg';
+import { motion, AnimatePresence } from 'framer-motion';
+import bannerImage1 from '../assets/images/pagebanner.jpg';
+import bannerImage2 from '../assets/images/pagebanner2.jpg'; 
+import bannerImage3 from '../assets/images/pagebanner3.jpg'; 
 
 // Animation variants for smooth entrance
 const containerVariants = {
@@ -18,17 +20,53 @@ const childVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
+const imageVariants = {
+  enter: { opacity: 0, x: 100 },
+  center: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: -100 },
+};
+
 const GetStarted = () => {
+  const images = [bannerImage1, bannerImage2, bannerImage3];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Auto-slide every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [images.length]);
+
+  // Handle manual dot navigation (optional)
+  const handleDotClick = (index) => {
+    setCurrentImageIndex(index);
+  };
+
   return (
     <motion.section
-      className="relative w-full h-screen flex items-center justify-center bg-cover bg-center bg-gradient-to-b from-indigo-950 to-purple-950 overflow-hidden"
-      style={{ backgroundImage: `url(${bannerImage})` }}
+      className="relative w-full h-screen flex items-center justify-center bg-gradient-to-b from-indigo-950 to-purple-950 overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
+      {/* Background Image Carousel */}
+      <AnimatePresence>
+        <motion.div
+          key={currentImageIndex}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${images[currentImageIndex]})` }}
+          variants={imageVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+        />
+      </AnimatePresence>
+
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-purple-900/60"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-purple-900/70"></div>
 
       {/* Content */}
       <motion.div
@@ -63,6 +101,20 @@ const GetStarted = () => {
           </Link>
         </motion.div>
       </motion.div>
+
+      {/* Navigation Dots */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              currentImageIndex === index ? 'bg-indigo-400' : 'bg-gray-400/50'
+            }`}
+            onClick={() => handleDotClick(index)}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </motion.section>
   );
 };

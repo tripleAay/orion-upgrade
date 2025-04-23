@@ -141,7 +141,7 @@ const Header = () => {
               Log In
             </button>
           </Link>
-          <Link to="/application">
+          <Link to="/signup">
             <button className="px-4 py-2 rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition-colors">
               Open Account
             </button>
