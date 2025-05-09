@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 import { Mail, Lock, Loader } from 'lucide-react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import logo from '../assets/images/logo.png';
-import { auth, db } from '../firebase/Firebase'; // Fixed import path
+import logo from '../assets/images/logocopy.png';
+import { auth, db } from '../firebase/Firebase'; // Adjusted import path
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import Header from '../components/Header'; // Adjusted import path (relative to components folder)
+import Subhead from '../components/Subhead'; // Adjusted import path
 
-// Animation variants for smooth entrance
+// Animation variants
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -40,6 +40,7 @@ const SignIn = () => {
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
+      style: { background: 'linear-gradient(to right, #00b09b, #96c93d)' },
     });
   };
 
@@ -51,6 +52,7 @@ const SignIn = () => {
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
+      style: { background: 'linear-gradient(to right, #ff0000, #ff6347)' },
     });
   };
 
@@ -103,13 +105,16 @@ const SignIn = () => {
 
   return (
     <>
-      <Header />
-      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 to-gray-200 dark:from-gray-900 dark:to-indigo-950 transition-colors duration-300 pt-20">
+      <Subhead />
+      <motion.section
+        className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-100 to-gray-200 dark:from-gray-900 dark:to-indigo-950 transition-colors duration-300 pt-20"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <motion.div
           className="bg-white dark:bg-gray-800 shadow-2xl rounded-xl max-w-md w-full p-8 sm:p-10"
           variants={containerVariants}
-          initial="hidden"
-          animate="visible"
         >
           {/* Logo */}
           <div className="text-center mb-8">
@@ -229,7 +234,7 @@ const SignIn = () => {
               <p className="text-gray-600 dark:text-gray-300">
                 Don't have an account?{' '}
                 <Link
-                  to="/application"
+                  to="/signup"
                   className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-semibold transition-colors"
                 >
                   Sign Up
@@ -238,7 +243,7 @@ const SignIn = () => {
             </div>
           </form>
         </motion.div>
-      </section>
+      </motion.section>
     </>
   );
 };

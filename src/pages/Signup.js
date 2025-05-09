@@ -4,11 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, Eye, EyeOff, Loader } from 'lucide-react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import logo from '../assets/images/logo.png';
 import { auth, db } from '../firebase/Firebase'; // Fixed import path
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import Header from '../components/Header';
+import Header from '../components/Subhead';
 import Subscribe from '../components/Subscribe';
 
 // Animation variants

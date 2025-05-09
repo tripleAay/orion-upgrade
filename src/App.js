@@ -10,6 +10,10 @@ import ForecastTrader from './components/ForecastTrader';
 import Subscribe from './components/Subscribe';
 import SignIn from './pages/Signin';
 import Signup from './pages/Signup';
+import Application from './pages/Applicationprocess';
+import Main from './pages/dashboard/Main';
+import Dashboard from './pages/dashboard/Dashboard';
+
 
 function Home() {
   return (
@@ -30,6 +34,10 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/applicationprocess" element={<Application/>}/>
+      <Route path="/dashboard" element={<Main/>}/>
+      <Route path="/dashboardp" element={<Dashboard/>}/>
+      
       {/* Add more routes as needed */}
     </Routes>
   );
